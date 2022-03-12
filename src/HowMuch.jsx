@@ -43,6 +43,7 @@ const HowMuch = () => {
           width: "100%",
           padding: "0 30px",
           color: "#fff",
+          textAlign: "left",
         }}
       >
         How Much Paneer?
@@ -135,7 +136,8 @@ const InputContainer = styled.div`
   width: 200px;
 `;
 const TableContainer = styled.div`
-  width: 30%;
+  max-width: 1000px;
+  /* width: 30%; */
 `;
 const Container = styled.div`
   /* padding: 40px; */
@@ -178,12 +180,13 @@ const Heading = styled.div`
   font-size: 40px;
   color: #c37a2b;
   font-weight: 500;
-
+  text-align: center;
   /* align-self: start; */
 `;
 const SubHeading = styled.div`
   padding: 10px 0;
   font-size: 32px;
+  text-align: center;
   /* align-self: start; */
 `;
 
@@ -196,7 +199,7 @@ const ContentContainer = styled.div`
 
   margin-top: 40px;
   flex: 1;
-  padding: 20px 0;
+  padding: 20px;
   background: linear-gradient(
       89.98deg,
       rgba(195, 122, 43, 0.16) 0.02%,
