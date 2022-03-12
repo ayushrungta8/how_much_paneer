@@ -1,11 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const ProteinTab = ({ food, handleQuantityChange }) => {
-  //   const [protein, setProtein] = useState(0);
-  //   const handleQuantityChange = (value) => {
-  //     food.totalProtein = value / food.proteinContent;
-  //   };
   return (
     <Container>
       <Text align="flex-start">{food.name}</Text>
