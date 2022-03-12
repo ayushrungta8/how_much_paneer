@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import foods from "./db";
 import ProteinTab from "./ProteinTab";
 const HowMuch = () => {
   const [weight, setWeight] = useState(0);
   const [foodList, setFoodList] = useState([...foods]);
+  const [contentContainerVisible, setContentContainerVisible] = useState(false);
+  useEffect(() => {
+    let visible = false;
+    foodList.forEach((food) => {
+      food.selected && (visible = true);
+    });
+    setContentContainerVisible(visible);
+  }, [foodList]);
 
   const handleCapsuleSelect = (e) => {
     console.log(e.target.id);
@@ -17,20 +25,29 @@ const HowMuch = () => {
 
   const handleQuantityChange = (e, food) => {
     // food.totalProtein = e.target.value / food.proteinContent;
-    console.log(e.target.value);
-    console.log(food);
+    // console.log(e.target.value);
+    // console.log(food);
     const tempFoodList = [...foodList];
     tempFoodList.forEach((item) => {
       item.id === food.id &&
-        (item.totalProtein = e.target.value / item.proteinContent);
+        (item.totalProtein = Math.ceil(e.target.value * item.proteinContent));
     });
     setFoodList(tempFoodList);
   };
 
   return (
     <Container>
-      <SubContainerVertical style={{ alignItems: "flex-start" }}>
-        <Heading>How Much Paneer?</Heading>
+      <Heading
+        style={{
+          backgroundColor: "#1C1D21",
+          width: "100%",
+          padding: "0 30px",
+          color: "#fff",
+        }}
+      >
+        How Much Paneer?
+      </Heading>
+      <SubContainerVertical>
         <SubHeading style={{ color: "#333333" }}>
           Let’s check how much protein you need daily
         </SubHeading>
@@ -47,10 +64,22 @@ const HowMuch = () => {
       </SubContainerHorizontal>
       <SubContainerVertical>
         <SubHeading>
-          According to your weight WHO recommends {weight ? weight : "--"} gm
+          According to your weight WHO recommends{" "}
+          <span
+            style={{
+              color: "#c37a2b",
+              minWidth: "120px",
+              display: "inline-block",
+              textAlign: "center",
+            }}
+          >
+            {" "}
+            {weight ? Math.ceil(weight * 0.83) : "--"} gm{" "}
+          </span>
+          of protein daily
         </SubHeading>
         <Heading style={{ fontSize: "36px" }}>
-          Choose the food you want protein from and create a plan!
+          Choose your protein sources and create a plan! &#128525;
         </Heading>
       </SubContainerVertical>
       <CapsuleContainer>
@@ -65,15 +94,19 @@ const HowMuch = () => {
           </Capsule>
         ))}
       </CapsuleContainer>
+
       <ContentContainer>
-        <SubHeading style={{ fontSize: "36px", color: "#fff" }}>
-          Total protein you get from the following food{" "}
-          <span style={{ fontSize: "36px", color: "#FFA149" }}>
-            {foodList.reduce((acc, curr) => {
-              return (acc += curr.totalProtein);
-            }, 0)}
-          </span>
-        </SubHeading>
+        {contentContainerVisible && (
+          <SubHeading style={{ fontSize: "36px", color: "#fff" }}>
+            Total protein you get from the following food is ~{" "}
+            <span style={{ fontSize: "36px", color: "#FFA149" }}>
+              {foodList.reduce((acc, curr) => {
+                return (acc += curr.totalProtein);
+              }, 0)}
+            </span>{" "}
+            gm
+          </SubHeading>
+        )}
         <TableContainer>
           {foodList.map((food) => {
             return food.selected ? (
@@ -111,13 +144,14 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
 `;
 const CapsuleContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  width: 60%;
 `;
 const Capsule = styled.div`
   /* background-color: #fff; */
@@ -128,6 +162,7 @@ const Capsule = styled.div`
   border-radius: 12px;
   width: 250px;
   font-size: 28px;
+  text-align: center;
 `;
 const Input = styled.input`
   padding: 10px;
@@ -138,10 +173,12 @@ const Input = styled.input`
     outline: none;
   }
 `;
-const Heading = styled.h1`
+const Heading = styled.div`
   padding: 10px 0;
   font-size: 40px;
   color: #c37a2b;
+  font-weight: 500;
+
   /* align-self: start; */
 `;
 const SubHeading = styled.div`
@@ -156,8 +193,10 @@ const ContentContainer = styled.div`
   flex-direction: column;
   align-items: center;
   /* justify-content: center; */
-  margin-top: 20px;
+
+  margin-top: 40px;
   flex: 1;
+  padding: 20px 0;
   background: linear-gradient(
       89.98deg,
       rgba(195, 122, 43, 0.16) 0.02%,
@@ -176,6 +215,6 @@ const SubContainerVertical = styled.div`
   flex-direction: column;
   padding: 20px;
   /* justify-content: center; */
-  /* align-items: center; */
+  align-items: center;
 `;
 export default HowMuch;

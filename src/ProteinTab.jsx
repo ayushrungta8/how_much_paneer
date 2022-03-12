@@ -5,9 +5,18 @@ const ProteinTab = ({ food, handleQuantityChange }) => {
   return (
     <Container>
       <Text align="flex-start">{food.name}</Text>
-      <Input onChange={(e) => handleQuantityChange(e, food)} />
+      <Input
+        placeholder={
+          food.name === "Egg"
+            ? "Enter in Number"
+            : food.name === "Milk"
+            ? "Enter in litre"
+            : "Enter in gm"
+        }
+        onChange={(e) => handleQuantityChange(e, food)}
+      />
       <Text align="flex-end">
-        {food.totalProtein !== 0 ? food.totalProtein : "--"}
+        {food.totalProtein !== 0 ? `${food.totalProtein} gm ` : "--"}
       </Text>
     </Container>
   );
@@ -22,7 +31,7 @@ const Text = styled.div`
   display: flex;
   justify-content: ${(props) => props.align};
   /* text-align: left; */
-  font-size: 20px;
+  font-size: 28px;
   color: #fff;
 `;
 const Input = styled.input`
