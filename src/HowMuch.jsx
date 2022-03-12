@@ -149,10 +149,7 @@ const SubHeading = styled.div`
   font-size: 32px;
   /* align-self: start; */
 `;
-const Content = styled.div`
-  padding: 20px;
-  font-size: 22px;
-`;
+
 const ContentContainer = styled.div`
   width: 100%;
   display: flex;
