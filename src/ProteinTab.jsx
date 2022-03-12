@@ -35,5 +35,8 @@ const Input = styled.input`
   /* border: 2px solid #e0e0e0; */
   border-radius: 5px;
   font-size: 20px;
+  :focus {
+    outline: 3px solid #c37b2b;
+  }
 `;
 export default ProteinTab;

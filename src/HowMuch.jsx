@@ -125,7 +125,7 @@ const Capsule = styled.div`
   padding: 10px;
   cursor: pointer;
   border: 1px solid #c37b2b;
-  border-radius: 5px;
+  border-radius: 12px;
   width: 250px;
   font-size: 28px;
 `;
@@ -159,6 +159,7 @@ const ContentContainer = styled.div`
   flex-direction: column;
   align-items: center;
   /* justify-content: center; */
+  margin-top: 20px;
   flex: 1;
   background: linear-gradient(
       89.98deg,
